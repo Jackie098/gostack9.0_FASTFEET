@@ -1,11 +1,11 @@
 {
   "name": "fastfeet",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "author": "Jackie098 <carlosmiranda19122@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon scr/server.js"
+    "dev": "nodemon src/server.js"
   },
   "dependencies": {
     "express": "^4.17.1"
