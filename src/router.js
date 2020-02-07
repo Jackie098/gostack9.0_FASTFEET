@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import AdmController from './app/controllers/AdmController';
+import SessionController from './app/controllers/SessionController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -11,9 +12,10 @@ routes.get('/', (req, res) =>
 );
 
 /**
- * Create new adm and session and it don't need auth
+ * Create new adm and session.It doesn't need auth
  */
 routes.post('/adms', AdmController.store);
+routes.post('/sessions', SessionController.store);
 
 /**
  * Routes that need autentication
