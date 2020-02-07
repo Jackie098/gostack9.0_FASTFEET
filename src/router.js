@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import AdmController from './app/controllers/AdmController';
 import SessionController from './app/controllers/SessionController';
+import RecipientController from './app/controllers/RecipentController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -21,5 +22,10 @@ routes.post('/sessions', SessionController.store);
  * Routes that need autentication
  */
 routes.use(authMiddleware);
+
+/**
+ * Manipulating Recipient routes
+ */
+routes.post('/recipients', RecipientController.store);
 
 export default routes;
