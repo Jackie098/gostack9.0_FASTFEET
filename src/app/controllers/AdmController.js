@@ -4,34 +4,29 @@ import Adm from '../models/Adm';
 
 class AdmController {
   async store(req, res) {
-    // const schema = Yup.object().shape({
-    //   name: Yup.string().required(),
-    //   email: Yup.string()
-    //     .email()
-    //     .required(),
-    //   password: Yup.string()
-    //     .required()
-    //     .min(6),
-    // });
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      password: Yup.string()
+        .required()
+        .min(6),
+    });
 
-    // if (!(await schema.isValid(req.body))) {
-    //   return res.status(400).json({ error: 'Validation fails' });
-    // }
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
 
-    // const admExists = await Adm.findOne({ where: { email: req.body.email } });
+    const admExists = await Adm.findOne({ where: { email: req.body.email } });
 
-    // if (admExists) {
-    //   return res.status(400).json({ error: 'Adm already exists' });
-    // }
+    if (admExists) {
+      return res.status(400).json({ error: 'Adm already exists' });
+    }
 
-    /* const { id, name, email } */ await Adm.create(req.body);
+    const { id, name, email } = await Adm.create(req.body);
 
-    return res.json(
-      // id,
-      // name,
-      // email,
-      req.body
-    );
+    return res.json({ id, name, email });
   }
 }
 
