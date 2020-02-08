@@ -6,6 +6,7 @@ import AdmController from './app/controllers/AdmController';
 import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipentController';
 import FileController from './app/controllers/FileController';
+import CourierController from './app/controllers/CourierController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -36,5 +37,10 @@ routes.post('/recipients', RecipientController.store);
  * To manipule Files
  */
 routes.post('/files', upload.single('file'), FileController.store);
+
+/**
+ * To manipule Couriers
+ */
+routes.post('/couriers', CourierController.store);
 
 export default routes;
