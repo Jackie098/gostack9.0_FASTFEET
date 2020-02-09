@@ -7,16 +7,13 @@ import SessionController from './app/controllers/SessionController';
 import RecipientController from './app/controllers/RecipentController';
 import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
+import SignatureController from './app/controllers/SignatureController';
 
 import authMiddleware from './app/middleware/auth';
 
 const routes = new Router();
 
 const upload = multer(multerConfig);
-
-routes.get('/', (req, res) =>
-  res.json({ welcome: 'Welcome to my future life' })
-);
 
 /**
  * Create new adm and session.They doesn't need auth
@@ -25,12 +22,17 @@ routes.post('/adms', AdmController.store);
 routes.post('/sessions', SessionController.store);
 
 /**
- * Routes that need autentication
+ * To manipule Signatures
+ */
+routes.post('/signatures', upload.single('file'), SignatureController.store);
+
+/**
+ * Routes that need autentication - just adm's
  */
 routes.use(authMiddleware);
 
 /**
- * Manipulating Recipient routes
+ * To manipule Recipients
  */
 routes.post('/recipients', RecipientController.store);
 
