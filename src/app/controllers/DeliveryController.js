@@ -4,12 +4,58 @@ import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Courier from '../models/Courier';
 import Signature from '../models/Signature';
+import File from '../models/File';
 
 import OrderMail from '../jobs/OrderMail';
 
 import Queue from '../../lib/Queue';
 
 class DeliveryController {
+  async index(req, res) {
+    const { page } = req.query;
+
+    const deliveries = await Delivery.findAll({
+      attributes: ['id', 'product', 'canceled_at', 'start_date', 'end_date'],
+      limit: 5,
+      offset: (page - 1) * 5,
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: [
+            'id',
+            'name',
+            'street',
+            'number',
+            'complement',
+            'state',
+            'city',
+            'cep',
+          ],
+        },
+        {
+          model: Courier,
+          as: 'courier',
+          attributes: ['id', 'name', 'email'],
+          include: [
+            {
+              model: File,
+              as: 'avatar',
+              attributes: ['id', 'path', 'url'],
+            },
+          ],
+        },
+        {
+          model: Signature,
+          as: 'signature',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json(deliveries);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       recipient_id: Yup.number().required(),

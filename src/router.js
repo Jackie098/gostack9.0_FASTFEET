@@ -53,6 +53,7 @@ routes.delete('/couriers/:id', CourierController.delete);
 /**
  * To manipule Deliveries
  */
+routes.get('/deliveries', DeliveryController.index);
 routes.post('/deliveries', DeliveryController.store);
 
 export default routes;
