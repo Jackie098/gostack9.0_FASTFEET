@@ -8,6 +8,7 @@ import RecipientController from './app/controllers/RecipentController';
 import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
 import SignatureController from './app/controllers/SignatureController';
+import DeliveryController from './app/controllers/DeliveryController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -16,7 +17,7 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 /**
- * Create new adm and session.They doesn't need auth
+ * Create new adm and session.They don't need auth
  */
 routes.post('/adms', AdmController.store);
 routes.post('/sessions', SessionController.store);
@@ -48,5 +49,10 @@ routes.get('/couriers', CourierController.index);
 routes.post('/couriers', CourierController.store);
 routes.put('/couriers/:id', CourierController.update);
 routes.delete('/couriers/:id', CourierController.delete);
+
+/**
+ * To manipule Deliveries
+ */
+routes.post('/deliveries', DeliveryController.store);
 
 export default routes;
