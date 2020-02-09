@@ -99,6 +99,18 @@ class CourierController {
 
     return res.json({ id, name, avatar, courierEmail });
   }
+
+  async delete(req, res) {
+    const courier = await Courier.findByPk(req.params.id);
+
+    if (!courier) {
+      return res.status(400).json({ error: 'Courier does not exists' });
+    }
+
+    await courier.destroy();
+
+    return res.json({ message: 'Successful operation, courier deleted' });
+  }
 }
 
 export default new CourierController();
