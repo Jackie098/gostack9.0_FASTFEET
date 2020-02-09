@@ -11,6 +11,7 @@ import CourierController from './app/controllers/CourierController';
 import authMiddleware from './app/middleware/auth';
 
 const routes = new Router();
+
 const upload = multer(multerConfig);
 
 routes.get('/', (req, res) =>
