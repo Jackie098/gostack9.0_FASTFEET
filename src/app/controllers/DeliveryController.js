@@ -15,7 +15,22 @@ class DeliveryController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
-    return res.json();
+
+    const recipient = await Recipient.findByPk(req.body.recipient_id);
+
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exists' });
+    }
+
+    const courier = await Courier.findByPk(req.body.courier_id);
+
+    if (!courier) {
+      return res.status(400).json({ error: 'Courier does not exists' });
+    }
+
+    const delivery = await Delivery.create(req.body);
+
+    return res.json(delivery);
   }
 }
 
