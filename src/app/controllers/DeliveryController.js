@@ -1,8 +1,13 @@
 import * as Yup from 'yup';
+
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Courier from '../models/Courier';
 import Signature from '../models/Signature';
+
+import OrderMail from '../jobs/OrderMail';
+
+import Queue from '../../lib/Queue';
 
 class DeliveryController {
   async store(req, res) {
@@ -28,7 +33,27 @@ class DeliveryController {
       return res.status(400).json({ error: 'Courier does not exists' });
     }
 
-    const delivery = await Delivery.create(req.body);
+    const { id } = await Delivery.create(req.body);
+
+    const delivery = await Delivery.findByPk(id, {
+      attributes: ['id', 'product', 'created_at'],
+      include: [
+        {
+          model: Recipient,
+          as: 'recipient',
+          attributes: ['state', 'city', 'cep'],
+        },
+        {
+          model: Courier,
+          as: 'courier',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
+
+    await Queue.add(OrderMail.key, {
+      delivery,
+    });
 
     return res.json(delivery);
   }
