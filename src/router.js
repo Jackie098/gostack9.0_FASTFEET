@@ -9,6 +9,7 @@ import FileController from './app/controllers/FileController';
 import CourierController from './app/controllers/CourierController';
 import SignatureController from './app/controllers/SignatureController';
 import DeliveryController from './app/controllers/DeliveryController';
+import CourierCheckController from './app/controllers/CourierCheckController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -26,6 +27,11 @@ routes.post('/sessions', SessionController.store);
  * To manipule Signatures
  */
 routes.post('/signatures', upload.single('file'), SignatureController.store);
+
+/**
+ * To couriers check
+ */
+routes.get('/couriers/:id/deliveries', CourierCheckController.index);
 
 /**
  * Routes that need autentication - just adm's
