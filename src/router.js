@@ -11,6 +11,7 @@ import SignatureController from './app/controllers/SignatureController';
 import DeliveryController from './app/controllers/DeliveryController';
 import CourierCheckController from './app/controllers/CourierCheckController';
 import DeliveryFinishedController from './app/controllers/DeliveryFinishedController';
+import TakeOutController from './app/controllers/TakeOutController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -30,10 +31,11 @@ routes.post('/sessions', SessionController.store);
 routes.post('/signatures', upload.single('file'), SignatureController.store);
 
 /**
- * To couriers check
+ * For handling couriers
  */
 routes.get('/couriers/:id/deliveries', CourierCheckController.index);
 routes.get('/couriers/:id/deliveries/done', DeliveryFinishedController.index);
+routes.put('/couriers/:id/:delivery/takeout', TakeOutController.update);
 
 /**
  * Routes that need autentication - just adm's
