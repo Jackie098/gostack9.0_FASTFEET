@@ -36,6 +36,11 @@ routes.post('/signatures', upload.single('file'), SignatureController.store);
 routes.get('/couriers/:id/deliveries', CourierCheckController.index);
 routes.get('/couriers/:id/deliveries/done', DeliveryFinishedController.index);
 routes.put('/couriers/:id/:delivery/takeout', TakeOutController.update);
+routes.put(
+  '/couriers/:id/:delivery/done',
+  upload.single('file'),
+  DeliveryFinishedController.update
+);
 
 /**
  * Routes that need autentication - just adm's
