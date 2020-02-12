@@ -13,7 +13,7 @@ import CourierCheckController from './app/controllers/CourierCheckController';
 import DeliveryFinishedController from './app/controllers/DeliveryFinishedController';
 import TakeOutController from './app/controllers/TakeOutController';
 import DeliveriesProblemController from './app/controllers/DeliveriesProblemController';
-import AllDeliveryProblems from './app/controllers/AllDeliveryProblems';
+import AllDeliveryProblemsController from './app/controllers/AllDeliveryProblemsController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -75,6 +75,6 @@ routes.delete('/deliveries/:id', DeliveryController.delete);
  * To manipule Deliveries with a problems
  */
 routes.get('/deliveries/problems', DeliveriesProblemController.index);
-routes.get('/delivery/:id/problems', AllDeliveryProblems.index);
+routes.get('/delivery/:id/problems', AllDeliveryProblemsController.index);
 
 export default routes;
