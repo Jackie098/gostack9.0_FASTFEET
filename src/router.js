@@ -15,6 +15,7 @@ import TakeOutController from './app/controllers/TakeOutController';
 import DeliveriesProblemController from './app/controllers/DeliveriesProblemController';
 import AllDeliveryProblemsController from './app/controllers/AllDeliveryProblemsController';
 import RegisterProblemController from './app/controllers/RegisterProblemController';
+import CancelationDeliveryController from './app/controllers/CancelationDeliveryController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -78,5 +79,13 @@ routes.delete('/deliveries/:id', DeliveryController.delete);
  */
 routes.get('/deliveries/problems', DeliveriesProblemController.index);
 routes.get('/delivery/:id/problems', AllDeliveryProblemsController.index);
+
+/**
+ * To cancel Deliveries
+ */
+routes.put(
+  '/problem/:delivery/cancel-delivery',
+  CancelationDeliveryController.update
+);
 
 export default routes;
