@@ -14,6 +14,7 @@ import DeliveryFinishedController from './app/controllers/DeliveryFinishedContro
 import TakeOutController from './app/controllers/TakeOutController';
 import DeliveriesProblemController from './app/controllers/DeliveriesProblemController';
 import AllDeliveryProblemsController from './app/controllers/AllDeliveryProblemsController';
+import RegisterProblemController from './app/controllers/RegisterProblemController';
 
 import authMiddleware from './app/middleware/auth';
 
@@ -39,6 +40,7 @@ routes.get('/couriers/:id/deliveries', CourierCheckController.index);
 routes.get('/couriers/:id/deliveries/done', DeliveryFinishedController.index);
 routes.put('/couriers/:id/:delivery/takeout', TakeOutController.update);
 routes.put('/couriers/:id/:delivery/done', DeliveryFinishedController.update);
+routes.post('/couriers/:id/delivery/problem', RegisterProblemController.store);
 
 /**
  * Routes that need autentication - just adm's
