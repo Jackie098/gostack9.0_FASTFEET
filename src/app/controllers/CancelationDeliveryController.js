@@ -1,16 +1,35 @@
 import Delivery from '../models/Delivery';
+import Courier from '../models/Courier';
+
+import CancelationMail from '../jobs/CancelationMail';
+
+import Queue from '../../lib/Queue';
 
 class CancelationDeliveryController {
   async update(req, res) {
     const id = req.params.delivery;
 
-    const delivery = await Delivery.findByPk(id);
+    const deliveryExists = await Delivery.findByPk(id);
 
-    if (!delivery) {
+    if (!deliveryExists) {
       return res.status(400).json({ error: 'Delivery not found' });
     }
 
-    await delivery.update({ canceled_at: new Date() });
+    await deliveryExists.update({ canceled_at: new Date() });
+
+    const delivery = await Delivery.findOne({
+      where: { id },
+      attributes: ['product', 'canceled_at'],
+      include: {
+        model: Courier,
+        as: 'courier',
+        attributes: ['name', 'email'],
+      },
+    });
+
+    await Queue.add(CancelationMail.key, {
+      delivery,
+    });
 
     return res.json({ success: 'Delivery canceled successfully' });
   }
