@@ -12,7 +12,10 @@ class DeliveriesProblemController {
         {
           model: Delivery,
           as: 'delivery',
-          attributes: ['id', 'product'],
+          attributes: ['id', 'product', 'canceled_at'],
+          where: {
+            canceled_at: null,
+          },
           include: [
             {
               model: Courier,
