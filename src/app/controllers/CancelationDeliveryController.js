@@ -18,7 +18,7 @@ class CancelationDeliveryController {
     if (deliveryExists.end_date) {
       return res
         .status(400)
-        .json({ error: 'impossible to cancel a completed delivery' });
+        .json({ error: 'Impossible to cancel a completed delivery' });
     }
 
     await deliveryExists.update({ canceled_at: new Date() });
