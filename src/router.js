@@ -51,6 +51,7 @@ routes.use(authMiddleware);
 /**
  * To manipule Recipients
  */
+routes.get('/recipients', RecipientController.index);
 routes.post('/recipients', RecipientController.store);
 
 /**
