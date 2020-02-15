@@ -47,7 +47,8 @@ class DeliveryFinishedController {
 
     if (!delivery) {
       return res.status(400).json({
-        error: 'This delivery doest not belong to you or already ended',
+        error:
+          'This delivery doest not belong to you or already ended or it does not take out yet',
       });
     }
 
