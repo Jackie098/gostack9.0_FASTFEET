@@ -22,11 +22,11 @@ class SessionController {
     const adm = await Adm.findOne({ where: { email } });
 
     if (!adm) {
-      return res.status(401).json({ error: 'Administrator not found' });
+      return res.status(400).json({ error: 'Administrator not found' });
     }
 
     if (!(await adm.checkPassword(password))) {
-      return res.status(401).json({ error: "Password doesn't match" });
+      return res.status(400).json({ error: "Password doesn't match" });
     }
 
     const { id, name } = adm;

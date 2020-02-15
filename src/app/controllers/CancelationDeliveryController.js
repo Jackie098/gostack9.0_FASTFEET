@@ -15,6 +15,12 @@ class CancelationDeliveryController {
       return res.status(400).json({ error: 'Delivery not found' });
     }
 
+    if (deliveryExists.end_date) {
+      return res
+        .status(400)
+        .json({ error: 'impossible to cancel a completed delivery' });
+    }
+
     await deliveryExists.update({ canceled_at: new Date() });
 
     const delivery = await Delivery.findOne({
